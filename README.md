@@ -2,6 +2,21 @@
 
 This is a project for DBMS course in ELSYS.
 
+Used technologies:
++ Python (Flask)
++ Bootstrap v4.5
++ SQLite 3
+
+## Installation
+```bash
+pip install -r requirments.txt
+```
+
+## How to run
+```bash
+sh ./start.sh
+```
+
 ## Project information
 
 The project implements a simple movie catalog that stores movies and their actor in SQLite3 database. In the web page of the project you can see:
