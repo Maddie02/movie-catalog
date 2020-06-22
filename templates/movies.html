@@ -43,6 +43,11 @@
 
       <div class="container">
         <h1>Movies</h1>
+        {% if not latest %}
+          <a href="movies/latest">See the latest movies here</a>
+        {% else %}
+          <a href="/movies">Return to movies</a>
+        {% endif %}
         <div class="row">
           {% for movie in movies %}
           <div class="col-sm-4">

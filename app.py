@@ -33,6 +33,10 @@ def add_movie():
 
         return redirect('/movies')
 
+@app.route('/movies/latest')
+def latest_movies():
+    return render_template('movies.html', movies=Movie.latest(), latest=1);
+
 if __name__ == '__main__':
     app.run()
 
