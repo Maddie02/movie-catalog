@@ -26,6 +26,16 @@
             <li class="nav-item">
               <a class="nav-link" href="/top10">Top 10 Movies<span class="sr-only">(current)</span></a>    
             </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Check Top Movies
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% for genre in genres %}
+                      <a class="dropdown-item" href="top/{{genre}}">{{genre}}</a>
+                  {% endfor %}
+              </div>
+            </li>
           </ul>
         </div>
       </nav>

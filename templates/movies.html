@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            {% if not top10 %}
+            {% if not top10 and not topGenre %}
             <li class="nav-item active">
             {% else %}
             <li class="nav-item">
@@ -48,12 +48,26 @@
             {% endif %}
                 <a class="nav-link" href="/top10">Top 10 Movies<span class="sr-only">(current)</span></a>    
             </li>
+            {% if topGenre %}
+            <li class="nav-item active dropdown">
+            {% else %}
+            <li class="nav-item dropdown">
+            {% endif %}
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Check Top Movies
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for genre in genres %}
+                    <a class="dropdown-item" href="/top/{{genre}}">{{genre}}</a>
+                {% endfor %}
+              </div>
+            </li>
           </ul>
         </div>
       </nav>
 
       <div class="container">
-        {% if not top10 %}
+        {% if not top10 and not topGenre%}
         <h1>Movies</h1>
           {% if not latest %}
             <a href="movies/latest">See the latest movies here</a>
@@ -61,7 +75,11 @@
             <a href="/movies">Return to movies</a>
           {% endif %}
         {% else %}
-        <h1>Top 10 Movies</h1>
+          {% if topGenre %}
+            <h1>Top {{ genre }} Movies</h1>
+          {% else %}
+            <h1>Top 10 Movies</h1>
+          {% endif %}
         {% endif %}
         <div class="row">
           {% for movie in movies %}
