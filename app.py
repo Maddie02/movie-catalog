@@ -37,7 +37,7 @@ def add_movie():
 
 @app.route('/movies/latest')
 def latest_movies():
-    return render_template('movies.html', movies=Movie.latest(), latest=1)
+    return render_template('movies.html', movies=Movie.latest(), latest=1, genres=genres)
 
 
 @app.route('/top10')
