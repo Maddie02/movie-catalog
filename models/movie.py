@@ -28,6 +28,15 @@ class Movie(object):
             return [Movie(*movie) for movie in movies];
 
     @staticmethod
+    def top10():
+        with DB() as db:
+            movies = db.execute('''
+                SELECT * FROM movie
+                ORDER BY rating DESC
+            ''').fetchmany(10)
+            return [Movie(*movie) for movie in movies]
+
+    @staticmethod
     def create(self):
         with DB() as db:
             values = (self.name, self.genre, self.release_year, self.duration, self.description, self.rating, self.director_name)

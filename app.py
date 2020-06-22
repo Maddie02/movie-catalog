@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    return render_template('index.html')
+    return redirect('/movies')
 
 
 @app.route('/movies')
@@ -36,6 +36,11 @@ def add_movie():
 @app.route('/movies/latest')
 def latest_movies():
     return render_template('movies.html', movies=Movie.latest(), latest=1);
+
+@app.route('/top10')
+def top10Movies():
+    return render_template('movies.html', movies=Movie.top10(), top10=1);
+
 
 if __name__ == '__main__':
     app.run()
