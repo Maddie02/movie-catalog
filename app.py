@@ -5,6 +5,8 @@ from models.movie import Movie
 
 app = Flask(__name__)
 
+genres = ['Romance', 'Comedy', 'Action', 'Thriller', 'Drama', 'Fantasy', 'Adventure', 'Crime', 'Sci-fi', 'Historical', 'Horror', 'Mystery', 'Philosophical', 'Political', 'Animation', 'Musical'];
+
 @app.route('/')
 def main():
     return redirect('/movies')
@@ -12,12 +14,11 @@ def main():
 
 @app.route('/movies')
 def list_movies():
-    return render_template('movies.html', movies=Movie.all())
+    return render_template('movies.html', movies=Movie.all(), genres=genres)
 
 
 @app.route('/movies/add', methods=['GET', 'POST'])
 def add_movie():
-    genres = ['Romance', 'Comedy', 'Action', 'Thriller', 'Drama', 'Fantasy', 'Adventure', 'Crime', 'Sci-fi', 'Historical', 'Horror', 'Mystery', 'Philosophical', 'Political', 'Animation', 'Musical'];
     if request.method == 'GET':
         return render_template('add_movie.html', genres=genres)
     elif request.method == 'POST':
@@ -33,13 +34,20 @@ def add_movie():
 
         return redirect('/movies')
 
+
 @app.route('/movies/latest')
 def latest_movies():
-    return render_template('movies.html', movies=Movie.latest(), latest=1);
+    return render_template('movies.html', movies=Movie.latest(), latest=1)
+
 
 @app.route('/top10')
 def top10Movies():
-    return render_template('movies.html', movies=Movie.top10(), top10=1);
+    return render_template('movies.html', movies=Movie.top10(), top10=1, genres=genres)
+
+
+@app.route('/top/<genre>')
+def topMoviesInGenre(genre):
+    return render_template('movies.html', movies=Movie.topInGenre(genre), topGenre=1, genres=genres, genre=genre)
 
 
 if __name__ == '__main__':
