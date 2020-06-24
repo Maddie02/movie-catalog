@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request, redirect
 
 from models.movie import Movie
+from models.actor import Actor
 
 app = Flask(__name__)
 

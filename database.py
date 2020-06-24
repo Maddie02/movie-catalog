@@ -18,6 +18,25 @@ conn.cursor().execute('''
         )
 ''')
 
+conn.cursor().execute('''
+    CREATE TABLE IF NOT EXISTS actor 
+        (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            birth_year INTEGER NOT NULL
+        )
+''')
+
+conn.cursor().execute('''
+    CREATE TABLE IF NOT EXISTS actorMovieRelation (
+        actorID INTEGER,
+        movieID INTEGER,
+        FOREIGN KEY (actorID) REFERENCES actor(id),
+        FOREIGN KEY (movieID) REFERENCES movie(id)
+    )
+''')
+
 conn.commit()
 
 class DB:
