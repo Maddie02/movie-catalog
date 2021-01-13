@@ -2,11 +2,12 @@ from flask import Flask
 from flask import render_template, request, redirect
 
 from models.movie import Movie
+from models.actor import Actor
 
 app = Flask(__name__)
 
 genres = ['Romance', 'Comedy', 'Action', 'Thriller', 'Drama', 'Fantasy', 'Adventure', 'Crime', 'Sci-fi', 'Historical',
-          'Horror', 'Mystery', 'Philosophical', 'Political', 'Animation', 'Musical'];
+          'Horror', 'Mystery', 'Philosophical', 'Political', 'Animation', 'Musical']
 
 
 @app.route('/')
@@ -30,11 +31,19 @@ def add_movie():
                       request.form['duration'],
                       request.form['description'],
                       request.form['rating'],
-                      request.form['director_name']);
+                      request.form['director_name'])
 
         movie.create(movie)
 
         return redirect('/movies')
+
+
+@app.route('/movies/actors')
+def get_actor_movies():
+    movies = Actor.get_actors_movies()
+    for movie in movies:
+        print(movie.name)
+    return "Zdr"
 
 
 @app.route('/movies/latest')
@@ -49,7 +58,7 @@ def top10_movies():
 
 @app.route('/top/<genre>')
 def top_movie_in_genre(genre):
-    return render_template('movies.html', movies=Movie.topInGenre(genre), topGenre=1, genres=genres, genre=genre)
+    return render_template('movies.html', movies=Movie.top_in_genre(genre), topGenre=1, genres=genres, genre=genre)
 
 
 if __name__ == '__main__':

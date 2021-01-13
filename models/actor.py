@@ -1,4 +1,6 @@
 from database import DB
+from models.movie import Movie
+
 
 class Actor(object):
     def __init__(self, id, first_name, last_name, birth_year):
@@ -8,15 +10,28 @@ class Actor(object):
         self.birth_year = birth_year
 
     @staticmethod
-    def getActorMovies(actor):
+    def create(self):
+        with DB() as db:
+            values = (
+                self.first_name, self.last_name, self.birth_year
+            )
+            db.execute('''
+                INSERT INTO actor (first_name, last_name, birth_year)
+                VALUES (?, ?, ?)
+            ''', values)
+            return self
+
+    @staticmethod
+    def get_actors_movies():
         with DB() as db:
             movies = db.execute('''
-                SELECT movieID
+                SELECT movie.*
                 FROM actorMovieRelation
                 INNER JOIN movie ON movie.id = actorMovieRelation.movieID
-                WHERE actorMovieRelation.actorID = actor.id
+                WHERE actorMovieRelation.actorID = 3
             ''').fetchall()
-        return [Movie(*movie) for movie in movies];
+        return [Movie(*movie) for movie in movies]
+
 
     @staticmethod
     def getMovieActors(movie):

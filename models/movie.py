@@ -1,5 +1,6 @@
 from database import DB
 
+
 class Movie(object):
     def __init__(self, id, name, genre, release_year, duration, description, rating, director_name):
         self.id = id
@@ -10,7 +11,6 @@ class Movie(object):
         self.description = description
         self.rating = rating
         self.director_name = director_name
-
 
     @staticmethod
     def all():
@@ -37,7 +37,7 @@ class Movie(object):
             return [Movie(*movie) for movie in movies]
 
     @staticmethod
-    def topInGenre(genre):
+    def top_in_genre(genre):
         with DB() as db:
             movies = db.execute('''
                 SELECT * FROM movie
@@ -49,7 +49,9 @@ class Movie(object):
     @staticmethod
     def create(self):
         with DB() as db:
-            values = (self.name, self.genre, self.release_year, self.duration, self.description, self.rating, self.director_name)
+            values = (
+                self.name, self.genre, self.release_year, self.duration, self.description, self.rating,
+                self.director_name)
             db.execute('''
                 INSERT INTO movie (name, genre, release_year, duration, description, rating, director_name)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
